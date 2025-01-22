@@ -1,0 +1,37 @@
+Data,Estado,Tipo de Vacina,Vacinas Administradas
+2023-01-01,São Paulo,CoronaVac,150000
+2023-01-01,Minas Gerais,AstraZeneca,120000
+2023-01-01,Rio de Janeiro,Pfizer,80000
+2023-02-01,Bahia,CoronaVac,100000
+2023-02-01,Pernambuco,AstraZeneca,75000
+2023-02-01,Paraná,Pfizer,60000
+2023-03-01,Ceará,CoronaVac,90000
+2023-03-01,Goiás,AstraZeneca,110000
+2023-03-01,Santa Catarina,Pfizer,70000
+2023-04-01,São Paulo,Pfizer,140000
+2023-04-01,Maranhão,CoronaVac,95000
+2023-04-01,Rio de Janeiro,AstraZeneca,130000
+2023-05-01,Minas Gerais,Pfizer,80000
+2023-05-01,Bahia,AstraZeneca,120000
+2023-05-01,Paraná,CoronaVac,110000
+2023-06-01,Amazonas,CoronaVac,60000
+2023-06-01,Espírito Santo,Pfizer,50000
+2023-06-01,Rio Grande do Sul,AstraZeneca,85000
+2023-07-01,Pernambuco,CoronaVac,75000
+2023-07-01,Rio de Janeiro,Pfizer,90000
+2023-07-01,Mato Grosso,AstraZeneca,70000
+2023-08-01,São Paulo,AstraZeneca,110000
+2023-08-01,Goiás,Pfizer,95000
+2023-08-01,Ceará,CoronaVac,100000
+2023-09-01,Minas Gerais,Pfizer,115000
+2023-09-01,Paraná,CoronaVac,105000
+2023-09-01,Santa Catarina,CoronaVac,80000
+2023-10-01,Rio de Janeiro,Pfizer,85000
+2023-10-01,Bahia,AstraZeneca,90000
+2023-10-01,Pernambuco,CoronaVac,65000
+2023-11-01,Espírito Santo,Pfizer,70000
+2023-11-01,Amazonas,AstraZeneca,40000
+2023-11-01,Mato Grosso,Pfizer,55000
+2023-12-01,São Paulo,CoronaVac,120000
+2023-12-01,Goiás,CoronaVac,105000
+2023-12-01,Rio Grande do Sul,AstraZeneca,95000
