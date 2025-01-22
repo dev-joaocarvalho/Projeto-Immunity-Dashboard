@@ -4,7 +4,7 @@ import plotly.express as px
 import matplotlib.pyplot as plt
 
 # Carregar os dados
-df = pd.read_csv('dados_vacinacao.csv')
+df = pd.read_csv('simulaçõ_dados_vacinacao.csv')
 
 # Título do dashboard
 st.title("Dashboard de Vacinação")
