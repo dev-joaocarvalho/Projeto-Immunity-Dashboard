@@ -31,11 +31,9 @@ st.plotly_chart(fig_bar)
 
 # Gráfico de Linhas - Vacinas Administradas ao longo dos meses# Convertendo a coluna de data para o tipo datetime
 df['data_vacinacao'] = pd.to_datetime(df['data_vacinacao'], errors='coerce')
-
 # Agrupando os dados por mês e somando as vacinas aplicadas
 df['mes'] = df['data_vacinacao'].dt.to_period('M')
 df_mensal = df.groupby('mes')['vacinas_aplicadas'].sum().reset_index()
-
 # Criando o gráfico
 fig = px.line(df_mensal, x='mes', y='vacinas_aplicadas', title='Vacinas Aplicadas por Mês')
 
