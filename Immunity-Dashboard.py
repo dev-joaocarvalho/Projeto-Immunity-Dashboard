@@ -3,15 +3,22 @@ import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
 
+st.set_page_config(
+    page_title="Immunity",
+    page_icon="😷",
+    layout="centered",
+    initial_sidebar_state="auto"
+)
+
 # Carregar os dados
 df = pd.read_csv('simulação_dados_vacinacao.csv')
 
 # Título do dashboard
-st.title("Dashboard de Vacinação")
+st.title("😷Immunity Dashboard")
 
 # Descrição
 st.write("""
-    Este dashboard apresenta dados sobre as vacinas administradas em diferentes estados do Brasil.
+    Este dashboard apresenta dados simulados sobre as vacinas administradas em diferentes estados do Brasil.
     Ele inclui gráficos interativos para visualizar a quantidade de vacinas aplicadas ao longo do tempo,
     e a distribuição por estado e tipo de vacina.
 """)
