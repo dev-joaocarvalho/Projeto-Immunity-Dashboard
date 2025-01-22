@@ -4,7 +4,7 @@ import plotly.express as px
 import matplotlib.pyplot as plt
 
 # Carregar os dados
-df = pd.read_csv('simulação_dados_vacinacao.csv')
+df = pd.read_csv('dados_vacinacao.csv')
 
 # Título do dashboard
 st.title("Dashboard de Vacinação")
@@ -29,14 +29,19 @@ fig_bar = px.bar(tipo_vacinas, x='Tipo de Vacina', y='Vacinas Administradas', co
                  title="Quantidade de Vacinas por Tipo", color_discrete_map={'CoronaVac': 'blue', 'AstraZeneca': 'green', 'Pfizer': 'red'})
 st.plotly_chart(fig_bar)
 
-# Gráfico de Linhas - Vacinas Administradas ao longo dos meses# Convertendo a coluna de data para o tipo datetime
-df['data_vacinacao'] = pd.to_datetime(df['data_vacinacao'], errors='coerce')
-# Agrupando os dados por mês e somando as vacinas aplicadas
-df['mes'] = df['data_vacinacao'].dt.to_period('M')
-df_mensal = df.groupby('mes')['vacinas_aplicadas'].sum().reset_index()
-# Criando o gráfico
-fig = px.line(df_mensal, x='mes', y='vacinas_aplicadas', title='Vacinas Aplicadas por Mês')
+# Gráfico de Linhas - Vacinas Administradas ao longo dos meses
+st.subheader("Vacinas Administradas ao Longo do Tempo")
+df['Data'] = pd.to_datetime(df['Data'])
+df_monthly = df.groupby(df['Data'].dt.to_period('M'))['Vacinas Administradas'].sum().reset_index()
+df_monthly['Data'] = df_monthly['Data'].dt.strftime('%Y-%m')
 
+fig_line = plt.figure(figsize=(10,6))
+plt.plot(df_monthly['Data'], df_monthly['Vacinas Administradas'], marker='o', color='orange')
+plt.title('Vacinas Administradas ao Longo dos Meses')
+plt.xlabel('Mês')
+plt.ylabel('Vacinas Administradas')
+plt.xticks(rotation=45)
+st.pyplot(fig_line)
 
 # Filtro interativo para visualizar dados de um estado específico
 estado_selecionado = st.selectbox('Selecione um Estado para Detalhes', df['Estado'].unique())
