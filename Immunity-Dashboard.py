@@ -50,3 +50,5 @@ st.write(f"Detalhes para o estado de {estado_selecionado}:")
 st.write(df_estado)
 
 
+
+
