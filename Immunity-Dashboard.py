@@ -1,40 +1,52 @@
-import stremlit as st
+import streamlit as st
 import pandas as pd
+import plotly.express as px
+import matplotlib.pyplot as plt
 
-# Criando o DataFrame com os dados simulados
-data = {
-    "Data": [
-        "2023-01-01", "2023-01-01", "2023-01-01", "2023-02-01", "2023-02-01", "2023-02-01", "2023-03-01", "2023-03-01", "2023-03-01",
-        "2023-04-01", "2023-04-01", "2023-04-01", "2023-05-01", "2023-05-01", "2023-05-01", "2023-06-01", "2023-06-01", "2023-06-01",
-        "2023-07-01", "2023-07-01", "2023-07-01", "2023-08-01", "2023-08-01", "2023-08-01", "2023-09-01", "2023-09-01", "2023-09-01",
-        "2023-10-01", "2023-10-01", "2023-10-01", "2023-11-01", "2023-11-01", "2023-11-01", "2023-12-01", "2023-12-01", "2023-12-01"
-    ],
-    "Estado": [
-        "São Paulo", "Minas Gerais", "Rio de Janeiro", "Bahia", "Pernambuco", "Paraná", "Ceará", "Goiás", "Santa Catarina",
-        "São Paulo", "Maranhão", "Rio de Janeiro", "Minas Gerais", "Bahia", "Paraná", "Amazonas", "Espírito Santo", "Rio Grande do Sul",
-        "Pernambuco", "Rio de Janeiro", "Mato Grosso", "São Paulo", "Goiás", "Ceará", "Minas Gerais", "Paraná", "Santa Catarina",
-        "Rio de Janeiro", "Bahia", "Pernambuco", "Espírito Santo", "Amazonas", "Mato Grosso", "São Paulo", "Goiás", "Rio Grande do Sul"
-    ],
-    "Tipo de Vacina": [
-        "CoronaVac", "AstraZeneca", "Pfizer", "CoronaVac", "AstraZeneca", "Pfizer", "CoronaVac", "AstraZeneca", "Pfizer",
-        "Pfizer", "CoronaVac", "AstraZeneca", "Pfizer", "AstraZeneca", "CoronaVac", "CoronaVac", "Pfizer", "AstraZeneca",
-        "CoronaVac", "Pfizer", "AstraZeneca", "AstraZeneca", "Pfizer", "CoronaVac", "Pfizer", "CoronaVac", "CoronaVac",
-        "Pfizer", "AstraZeneca", "CoronaVac", "Pfizer", "AstraZeneca", "Pfizer", "CoronaVac", "CoronaVac", "AstraZeneca"
-    ],
-    "Vacinas Administradas": [
-        150000, 120000, 80000, 100000, 75000, 60000, 90000, 110000, 70000,
-        140000, 95000, 130000, 80000, 120000, 110000, 60000, 50000, 85000,
-        75000, 90000, 70000, 110000, 95000, 100000, 115000, 105000, 80000,
-        85000, 90000, 65000, 70000, 40000, 55000, 120000, 105000, 95000
-    ]
-}
+# Carregar os dados
+df = pd.read_csv('dados_vacinacao.csv')
 
-# Criando o DataFrame
-df = pd.DataFrame(data)
+# Título do dashboard
+st.title("Dashboard de Vacinação")
 
-# Salvando como CSV
-df.to_csv('dados_vacinacao.csv', index=False)
+# Descrição
+st.write("""
+    Este dashboard apresenta dados sobre as vacinas administradas em diferentes estados do Brasil.
+    Ele inclui gráficos interativos para visualizar a quantidade de vacinas aplicadas ao longo do tempo,
+    e a distribuição por estado e tipo de vacina.
+""")
 
-# Exibindo os primeiros registros do DataFrame para verificação
-print(df.head())
+# Gráfico de Pizza - Distribuição de vacinas por estado
+st.subheader("Distribuição de Vacinas por Estado")
+estado_vacinas = df.groupby('Estado')['Vacinas Administradas'].sum().reset_index()
+fig_pizza = px.pie(estado_vacinas, names='Estado', values='Vacinas Administradas', title='Distribuição das Vacinas por Estado')
+st.plotly_chart(fig_pizza)
+
+# Gráfico de Barras - Quantidade de Vacinas Administradas por Tipo
+st.subheader("Quantidade de Vacinas por Tipo")
+tipo_vacinas = df.groupby('Tipo de Vacina')['Vacinas Administradas'].sum().reset_index()
+fig_bar = px.bar(tipo_vacinas, x='Tipo de Vacina', y='Vacinas Administradas', color='Tipo de Vacina',
+                 title="Quantidade de Vacinas por Tipo", color_discrete_map={'CoronaVac': 'blue', 'AstraZeneca': 'green', 'Pfizer': 'red'})
+st.plotly_chart(fig_bar)
+
+# Gráfico de Linhas - Vacinas Administradas ao longo dos meses
+st.subheader("Vacinas Administradas ao Longo do Tempo")
+df['Data'] = pd.to_datetime(df['Data'])
+df_monthly = df.groupby(df['Data'].dt.to_period('M'))['Vacinas Administradas'].sum().reset_index()
+df_monthly['Data'] = df_monthly['Data'].dt.strftime('%Y-%m')
+
+fig_line = plt.figure(figsize=(10,6))
+plt.plot(df_monthly['Data'], df_monthly['Vacinas Administradas'], marker='o', color='orange')
+plt.title('Vacinas Administradas ao Longo dos Meses')
+plt.xlabel('Mês')
+plt.ylabel('Vacinas Administradas')
+plt.xticks(rotation=45)
+st.pyplot(fig_line)
+
+# Filtro interativo para visualizar dados de um estado específico
+estado_selecionado = st.selectbox('Selecione um Estado para Detalhes', df['Estado'].unique())
+df_estado = df[df['Estado'] == estado_selecionado]
+st.write(f"Detalhes para o estado de {estado_selecionado}:")
+st.write(df_estado)
+
 
