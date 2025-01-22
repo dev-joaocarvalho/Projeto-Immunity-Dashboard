@@ -4,7 +4,7 @@ import plotly.express as px
 import matplotlib.pyplot as plt
 
 # Carregar os dados
-df = pd.read_csv('dados_vacinacao.csv')
+df = pd.read_csv('simulaçõ_dados_vacinacao.csv')
 
 # Título do dashboard
 st.title("Dashboard de Vacinação")
@@ -48,6 +48,7 @@ estado_selecionado = st.selectbox('Selecione um Estado para Detalhes', df['Estad
 df_estado = df[df['Estado'] == estado_selecionado]
 st.write(f"Detalhes para o estado de {estado_selecionado}:")
 st.write(df_estado)
+
 
 
 
