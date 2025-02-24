@@ -56,6 +56,13 @@ df_estado = df[df['Estado'] == estado_selecionado]
 st.write(f"Detalhes para o estado de {estado_selecionado}:")
 st.write(df_estado)
 
+st.markdown(
+    """
+    Desenvolvido por **João Marcos Santos e Carvalho**  
+    📧 [E-mail](dev.joaocarvalho@email.com) | 🌐 [GitHub](https://github.com/dev-joaocarvalho) | 🔗 [LinkedIn](https://www.linkedin.com/in/joaom-s-carvalho)
+    """
+)
+
 
 
 
